@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.utils;
+package cn.xxtui.user.utils;
 
 import java.text.SimpleDateFormat;  
 import java.util.Calendar;  

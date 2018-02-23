@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.utils;
+package cn.xxtui.user.utils;
 
 /**
  * Created by 24593 on 2018/1/24.

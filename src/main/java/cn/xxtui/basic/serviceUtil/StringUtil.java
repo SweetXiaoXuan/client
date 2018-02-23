@@ -3,7 +3,7 @@ package cn.xxtui.basic.serviceUtil;
 import cn.xxtui.support.bean.ResultStruct;
 import cn.xxtui.support.util.MeaasgeUtil;
 import cn.xxtui.support.util.ValidateMode;
-import cn.xxtui.user.verification.utils.ResultMsgConstant;
+import cn.xxtui.user.utils.ResultMsgConstant;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;

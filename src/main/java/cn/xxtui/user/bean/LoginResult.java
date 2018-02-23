@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.bean;
+package cn.xxtui.user.bean;
 
 import java.io.Serializable;
 

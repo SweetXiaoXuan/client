@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.utils;
+package cn.xxtui.user.utils;
 
 import java.io.IOException;
 import java.io.StringWriter;

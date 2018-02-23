@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.bean;
+package cn.xxtui.user.bean;
 
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;

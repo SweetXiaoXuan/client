@@ -94,7 +94,7 @@
         <property name="dataSource" ref="DataSource"/>
     </bean>
 
-    <bean id="mobileSessionService" class="cn.xxtui.session.service.MobileSessionService" />
+    <bean id="mobileSessionService" class="cn.xxtui.session.MobileSessionService" />
 
     <!-- 定义事务管理器，其属性包含一个SessionFactory实例 -->
     <bean id="transactionManager"
@@ -107,7 +107,7 @@
     <!-- 扫描spring bean -->
 
     <context:component-scan base-package="cn.xxtui.basic.forward.frontService"></context:component-scan>
-    <context:component-scan base-package="cn.xxtui.user.verification.frontService"></context:component-scan>
+    <context:component-scan base-package="cn.xxtui.user.frontService"></context:component-scan>
     <context:component-scan base-package="cn.xxtui.activity.frontService"></context:component-scan>
-    <context:component-scan base-package="cn.xxtui.session.service"></context:component-scan>
+    <context:component-scan base-package="cn.xxtui.session"></context:component-scan>
 </beans>

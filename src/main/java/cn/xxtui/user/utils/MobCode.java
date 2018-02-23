@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.utils;
+package cn.xxtui.user.utils;
 
 /**
  * Mob platform error code

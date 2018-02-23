@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.service.smsSpi;
+package cn.xxtui.user.service.smsSpi;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;

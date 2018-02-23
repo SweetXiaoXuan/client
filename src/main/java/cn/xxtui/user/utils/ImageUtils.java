@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.utils;
+package cn.xxtui.user.utils;
 
 import cn.xxtui.support.bean.ResultStruct;
 import cn.xxtui.support.util.MeaasgeUtil;

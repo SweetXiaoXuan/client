@@ -1,4 +1,4 @@
-package cn.xxtui.user.verification.frontBean;
+package cn.xxtui.user.frontBean;
 
 import javax.ws.rs.FormParam;
 import java.util.HashMap;

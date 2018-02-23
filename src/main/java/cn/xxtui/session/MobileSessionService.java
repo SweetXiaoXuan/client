@@ -1,7 +1,7 @@
-package cn.xxtui.session.service;
+package cn.xxtui.session;
 
 import cn.xxtui.basic.serviceUtil.ReturnValue;
-import cn.xxtui.user.verification.bean.LoginResult;
+import cn.xxtui.user.bean.LoginResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
