@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.com.financial</groupId>
+    <groupId>cn.com.client</groupId>
     <artifactId>client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -312,7 +312,7 @@
 
                 <configuration>
                     <path>/${project.artifactId}</path>
-                    <server>flvoice</server>
+                    <server>client</server>
                     <url>http://localhost:8080/manager/text</url>
                     <contextFile>src/main/webapp/META-INF/context.xml</contextFile>
                     <port>8122</port>
