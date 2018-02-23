@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:cxf="http://cxf.apache.org/core"
+       xsi:schemaLocation="
+        http://cxf.apache.org/core
+        http://cxf.apache.org/schemas/core.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <!-- 配置web service -->
+    <jaxrs:server id="Forward" address="/">
+        <jaxrs:serviceBeans>
+            <ref bean="fForwardService"></ref>
+            <ref bean="fUserService"></ref>
+            <ref bean="fActivityService"></ref>
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>
+            <entry key="json" value="application/json"/>
+            <entry key="xml" value="application/xml"/>
+        </jaxrs:extensionMappings>
+        <jaxrs:providers>
+            <ref bean="sessionFilter"></ref>
+            <ref bean="reserveViews"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+    <bean id="sessionFilter" class="cn.xxtui.support.session.SessionFilter"></bean>
+    <bean id="reserveViews" class="org.apache.cxf.jaxrs.provider.RequestDispatcherProvider">
+        <property name="dispatcherName" value="jsp"/>
+        <property name="saveParametersAsAttributes" value="true"></property>
+        <property name="classResources">
+            <map>
+                <!-- <entry key="edu.student.bean.other.HomeBean" value="/WEB-INF/jsp/personal_homepage.jsp"
+                    /> -->
+            </map>
+        </property>
+        <property name="beanNames">
+            <map>
+                <!-- <entry key="edu.student.bean.other.Regist" value="regist" /> -->
+            </map>
+        </property>
+        <property name="enumResources">
+            <map>
+                <!-- <entry key="edu.student.service.Pages.PERSONAL_INFO" value="/WEB-INF/jsp/reg_personal_info.jsp"></entry> -->
+            </map>
+        </property>
+    </bean>
+
+    <!-- 必须要在Spring的配置文件里指定数据源，而不能在hibernate.cfg.xml里指定，否则 Spring会找不到数据源，在配置事务管理器的时候会报错（Cannot
+        unwrap to requested type [javax.sql.DataSource]） 数据源有多种选择，这里采用Spring自带的。 -->
+    <bean id="DataSource"
+          class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.p6spy.engine.spy.P6SpyDriver"></property>
+        <property name="jdbcUrl"
+                  value="jdbc:p6spy:mysql://127.0.0.1:3306/db_hodays?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull"/>
+        <property name="user" value="server"/>
+        <property name="password" value="server"/>
+
+        <property name="checkoutTimeout" value="30000" />
+        <property name="idleConnectionTestPeriod" value="30"/>
+        <property name="initialPoolSize" value="10" />
+        <property name="maxIdleTime" value="30" />
+        <property name="maxPoolSize" value="100" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />
+    </bean>
+
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+    <!-- 配置SessionFactory，由于创建一个SessionFactory的代价很高昂，所以要放到Spring容器 中来管理，其属性包含一个数据源实例。 -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.autoReconnect">true</prop>
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <!-- 扫描hibernate配置映射到数据表 -->
+            </list>
+        </property>
+        <property name="dataSource" ref="DataSource"/>
+    </bean>
+
+    <bean id="mobileSessionService" class="cn.xxtui.session.service.MobileSessionService" />
+
+    <!-- 定义事务管理器，其属性包含一个SessionFactory实例 -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven/>
+    <!-- <import resource="common.xml" /> -->
+    <!-- 扫描spring bean -->
+
+    <context:component-scan base-package="cn.xxtui.basic.forward.frontService"></context:component-scan>
+    <context:component-scan base-package="cn.xxtui.user.verification.frontService"></context:component-scan>
+    <context:component-scan base-package="cn.xxtui.activity.frontService"></context:component-scan>
+    <context:component-scan base-package="cn.xxtui.session.service"></context:component-scan>
+</beans>
